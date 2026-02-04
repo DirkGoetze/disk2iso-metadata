@@ -1,0 +1,34 @@
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+.temp/
+*.bak
+
+# API Keys (wichtig!)
+*api_key*
+*.key
+
+# Cache
+cache/
+*.nfo
+
+# Downloads
+covers/
+*.jpg
+*.png
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
