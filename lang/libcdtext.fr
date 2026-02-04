@@ -1,0 +1,16 @@
+# ===========================================================================
+# CD-TEXT Provider - Fichier de langue française
+# ===========================================================================
+# Filepath: lang/libcdtext.fr
+# Encoding: UTF-8
+# ===========================================================================
+
+MSG_TRY_CDTEXT="Tentative de lecture des métadonnées CD-TEXT du disque..."
+MSG_CDTEXT_FOUND="Métadonnées CD-TEXT lues avec succès"
+MSG_CDTEXT_NO_DATA="Aucune donnée CD-TEXT trouvée sur ce disque"
+MSG_CDTEXT_INCOMPLETE="Données CD-TEXT incomplètes (artiste ou album manquant)"
+MSG_CDTEXT_PROVIDER_READY="Fournisseur CD-TEXT initialisé et prêt"
+MSG_CDTEXT_PROVIDER_UNAVAILABLE="Fournisseur CD-TEXT indisponible (outils manquants)"
+MSG_CDTEXT_TOOL_MISSING="Outil CD-TEXT non trouvé"
+MSG_CDTEXT_METHOD_FAILED="Méthode CD-TEXT %s a échoué"
+MSG_CDTEXT_PRIORITY="Priorité du fournisseur CD-TEXT: %d (secours)"

@@ -122,6 +122,39 @@ Fertig
 
 ## Provider
 
+### Übersicht
+
+disk2iso unterstützt **3 Metadaten-Provider** für verschiedene Medientypen:
+
+| Provider | Medientyp | Verfügbarkeit | API-Key | Priorität |
+|----------|-----------|---------------|---------|-----------|
+| **CD-TEXT** | Audio-CD | ~10-20% | ❌ Nein | 50 (Mittel) |
+| **MusicBrainz** | Audio-CD | ~95% | ❌ Nein | 100 (Hoch) |
+| **TMDB** | DVD/Blu-ray | ~90% | ✅ Ja | 100 (Hoch) |
+
+**Provider-Auswahl**:
+- Framework ruft Provider nach **Priorität** auf
+- Erster erfolgreicher Provider gewinnt
+- Automatischer Fallback bei Fehlschlag
+
+### CD-TEXT (Audio-CDs)
+
+**Beschreibung**: Eingebettete Metadaten direkt von der CD
+
+**Vorteile**:
+- ✅ Offline-fähig (kein Internet erforderlich)
+- ✅ Sofortiges Auslesen (< 1 Sekunde)
+- ✅ 100% genau (vom Label)
+
+**Nachteile**:
+- ❌ Nur 10-20% der CDs enthalten CD-TEXT
+- ❌ Keine Cover Art
+- ❌ Begrenzte Metadaten
+
+**Tools**: `cd-info`, `icedax`, `cdda2wav`
+
+**Details**: Siehe [Kapitel 4.4.1: CD-TEXT-Provider](04-4_Metadaten/04-4-1_CD-Text.md)
+
 ### MusicBrainz (Audio-CDs)
 
 **URL**: https://musicbrainz.org
@@ -134,7 +167,7 @@ Fertig
 3. **Album-Daten** abrufen (Artist, Album, Tracks, Jahr)
 4. **Cover-Download** via Cover Art Archive
 
-**Details**: Siehe [Kapitel 4.4.1: MusicBrainz-Integration](04-4_Metadaten/04-4-1_MusicBrainz.md)
+**Details**: Siehe [Kapitel 4.4.11: MusicBrainz-Provider](04-4_Metadaten/04-4-11_MusicBrainz.md)
 
 ### TMDB (DVDs/Blu-rays)
 
@@ -148,20 +181,20 @@ Fertig
 3. **Film-Details** abrufen (Regisseur, Genre, Rating)
 4. **Poster-Download** (w500)
 
-**Details**: Siehe [Kapitel 4.4.2: TMDB-Integration](04-4_Metadaten/04-4-2_TMDB.md)
+**Details**: Siehe [Kapitel 4.4.21: TMDB-Provider](04-4_Metadaten/04-4-21_TMDB.md)
 
 ### Provider-Vergleich
 
-| Feature | MusicBrainz | TMDB |
-|---------|-------------|------|
-| **Disc-Typen** | Audio-CD | DVD, Blu-ray |
-| **API-Key** | ❌ Nicht erforderlich | ✅ Erforderlich (kostenlos) |
-| **Rate-Limit** | 1 req/s | 40 req/10s |
-| **Datenqualität** | ⭐⭐⭐⭐⭐ Exzellent | ⭐⭐⭐⭐⭐ Exzellent |
-| **Abdeckung** | ~2.5M Releases | ~900K Filme, ~200K TV-Serien |
-| **Sprachen** | Mehrsprachig | Mehrsprachig |
-| **Cover-Größe** | 500x500 (Cover Art Archive) | w500 (ca. 500px breit) |
-| **Identifikation** | Disc-ID (100% genau) | Titel-Suche (Fuzzy) |
+| Feature | CD-TEXT | MusicBrainz | TMDB |
+|---------|---------|-------------|------|
+| **Disc-Typen** | Audio-CD | Audio-CD | DVD, Blu-ray |
+| **API-Key** | ❌ Nein | ❌ Nein | ✅ Ja (kostenlos) |
+| **Internet** | ❌ Offline | ✅ Online | ✅ Online |
+| **Verfügbarkeit** | ~10-20% | ~95% | ~90% |
+| **Geschwindigkeit** | < 1s | 2-5s | 2-5s |
+| **Cover Art** | ❌ Nein | ✅ 500x500 | ✅ w500 |
+| **Identifikation** | Eingebettet | Disc-ID (100%) | Titel-Suche (Fuzzy) |
+| **Priorität** | 50 (Mittel) | 100 (Hoch) | 100 (Hoch) |
 
 ---
 

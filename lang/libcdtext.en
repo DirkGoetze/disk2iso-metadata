@@ -1,0 +1,16 @@
+# ===========================================================================
+# CD-TEXT Provider - English Language File
+# ===========================================================================
+# Filepath: lang/libcdtext.en
+# Encoding: UTF-8
+# ===========================================================================
+
+MSG_TRY_CDTEXT="Trying to read CD-TEXT metadata from disc..."
+MSG_CDTEXT_FOUND="CD-TEXT metadata successfully read"
+MSG_CDTEXT_NO_DATA="No CD-TEXT data found on this disc"
+MSG_CDTEXT_INCOMPLETE="CD-TEXT data incomplete (missing artist or album)"
+MSG_CDTEXT_PROVIDER_READY="CD-TEXT provider initialized and ready"
+MSG_CDTEXT_PROVIDER_UNAVAILABLE="CD-TEXT provider unavailable (missing tools)"
+MSG_CDTEXT_TOOL_MISSING="CD-TEXT tool not found"
+MSG_CDTEXT_METHOD_FAILED="CD-TEXT method %s failed"
+MSG_CDTEXT_PRIORITY="CD-TEXT provider priority: %d (fallback)"

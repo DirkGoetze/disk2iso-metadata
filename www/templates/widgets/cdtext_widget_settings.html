@@ -1,0 +1,67 @@
+<!-- ============================================================================
+     disk2iso - CD-TEXT Provider Widget Settings Template
+     ========================================================================== -->
+<div class="settings-section">
+    <h3>
+        <i class="fas fa-compact-disc"></i>
+        CD-TEXT Provider
+    </h3>
+
+    <div class="form-group">
+        <label for="cdtext-enabled">
+            <i class="fas fa-power-off"></i>
+            CD-TEXT Provider aktivieren
+            <span class="help-icon" title="Eingebettete Metadaten direkt von Audio-CDs auslesen (offline, ~10-20% Verfügbarkeit)">ⓘ</span>
+        </label>
+        <select 
+            id="cdtext-enabled" 
+            name="CDTEXT_ENABLED" 
+            onchange="handleFieldChange(this)">
+            <option value="true">Aktiviert</option>
+            <option value="false">Deaktiviert</option>
+        </select>
+        <small class="form-text">
+            Standard: Aktiviert - CD-TEXT ist ein Offline-Provider ohne externe API
+        </small>
+    </div>
+
+    <div class="form-group">
+        <label for="cdtext-priority">
+            <i class="fas fa-sort-amount-down"></i>
+            Provider-Priorität
+            <span class="help-icon" title="Höhere Werte = Bevorzugt. CD-TEXT (50) wird nach MusicBrainz (100) geprüft. Auf 150 erhöhen für Offline-First-Strategie">ⓘ</span>
+        </label>
+        <input 
+            type="number" 
+            id="cdtext-priority" 
+            name="CDTEXT_PRIORITY" 
+            min="0" 
+            max="200" 
+            step="10"
+            placeholder="50"
+            onchange="handleFieldChange(this)">
+        <small class="form-text">
+            Standard: 50 (Mittel) - MusicBrainz hat 100 (Hoch)<br>
+            Empfohlung: 50 für beste Datenqualität, 150 für Offline-Bevorzugung
+        </small>
+    </div>
+
+    <div class="form-group info-box">
+        <i class="fas fa-info-circle"></i>
+        <div>
+            <strong>CD-TEXT Verfügbarkeit:</strong><br>
+            Nur ~10-20% aller Audio-CDs enthalten eingebettete CD-TEXT Metadaten.<br>
+            <strong>Vorteile:</strong> Offline-fähig, sofortiges Auslesen (< 1s), 100% genau<br>
+            <strong>Nachteile:</strong> Keine Cover Art, oft nur Album-Daten ohne Track-Titel
+        </div>
+    </div>
+
+    <div class="form-group info-box" style="background: #e8f4f8; border-left: 4px solid #3498db;">
+        <i class="fas fa-tools"></i>
+        <div>
+            <strong>Benötigte Tools:</strong><br>
+            <code>cd-info</code> (libcdio-utils), <code>icedax</code> (cdrkit), oder <code>cdda2wav</code> (cdrtools)<br>
+            Installation: <code>sudo apt install libcdio-utils icedax</code>
+        </div>
+    </div>
+</div>
