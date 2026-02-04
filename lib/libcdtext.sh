@@ -60,7 +60,7 @@ cdtext_check_dependencies() {
 load_config_cdtext() {
     # Lese enabled aus INI (Standard: true)
     local enabled
-    enabled=$(config_get_value_ini "$MODULE_NAME_CDTEXT" "module" "enabled" "true")
+    enabled=$(settings_get_value_ini "$MODULE_NAME_CDTEXT" "module" "enabled" "true")
     
     # Setze Aktivierung
     if [[ "$enabled" == "true" ]]; then
@@ -72,7 +72,7 @@ load_config_cdtext() {
     
     # Lese Priorität aus INI (Standard: 50)
     local priority
-    priority=$(config_get_value_ini "$MODULE_NAME_CDTEXT" "provider" "priority" "50")
+    priority=$(settings_get_value_ini "$MODULE_NAME_CDTEXT" "provider" "priority" "50")
     CDTEXT_PRIORITY="${priority}"
     
     INITIALIZED_CDTEXT=true

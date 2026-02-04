@@ -152,10 +152,10 @@ load_metadata_config() {
     local selection_timeout cache_enabled check_interval default_apply_func
 
     #-- Lese METADATA-Konfiguration aus INI (mit Defaults) ------------------
-    selection_timeout=$(config_get_value_ini "$MODULE_NAME_METADATA" "settings" "selection_timeout" "$(_metadata_get_defaults "METADATA_SELECTION_TIMEOUT")")
-    cache_enabled=$(config_get_value_ini "$MODULE_NAME_METADATA" "settings" "cache_enable" "$(_metadata_get_defaults "METADATA_CACHE_ENABLED")")
-    check_interval=$(config_get_value_ini "$MODULE_NAME_METADATA" "settings" "check_interval" "$(_metadata_get_defaults "METADATA_CHECK_INTERVAL")")
-    default_apply_func=$(config_get_value_ini "$MODULE_NAME_METADATA" "settings" "default_apply_func" "$(_metadata_get_defaults "METADATA_DEFAULT_APPLY_FUNC")")
+    selection_timeout=$(settings_get_value_ini "$MODULE_NAME_METADATA" "settings" "selection_timeout" "$(_metadata_get_defaults "METADATA_SELECTION_TIMEOUT")")
+    cache_enabled=$(settings_get_value_ini "$MODULE_NAME_METADATA" "settings" "cache_enable" "$(_metadata_get_defaults "METADATA_CACHE_ENABLED")")
+    check_interval=$(settings_get_value_ini "$MODULE_NAME_METADATA" "settings" "check_interval" "$(_metadata_get_defaults "METADATA_CHECK_INTERVAL")")
+    default_apply_func=$(settings_get_value_ini "$MODULE_NAME_METADATA" "settings" "default_apply_func" "$(_metadata_get_defaults "METADATA_DEFAULT_APPLY_FUNC")")
 
     #-- Setze Variablen (Fallback auf Config-Werte falls vorhanden) --------
     METADATA_SELECTION_TIMEOUT="${METADATA_SELECTION_TIMEOUT:-${selection_timeout}}"
@@ -204,7 +204,7 @@ metadata_load_registered_providers() {
     #-- Lade jeden installierten Provider ----------------------------------
     for provider_name in $provider_keys; do
         local is_installed
-        is_installed=$(config_get_value_ini "$MODULE_NAME_METADATA" "providers" "$provider_name" "false")
+        is_installed=$(settings_get_value_ini "$MODULE_NAME_METADATA" "providers" "$provider_name" "false")
         
         #-- Prüfe Installation-Status (nur true/false) ----------------------
         if [[ "$is_installed" != "true" ]]; then

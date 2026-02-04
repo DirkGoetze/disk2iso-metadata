@@ -47,8 +47,8 @@ def get_cdtext_config():
 source {INSTALL_DIR}/lib/libsettings.sh
 
 # Lese CD-TEXT Provider-Werte aus INI
-ENABLED=$(config_get_value_ini "cdtext" "module" "enabled" "true")
-PRIORITY=$(config_get_value_ini "cdtext" "provider" "priority" "50")
+ENABLED=$(settings_get_value_ini "cdtext" "module" "enabled" "true")
+PRIORITY=$(settings_get_value_ini "cdtext" "provider" "priority" "50")
 
 # Ausgabe als Key=Value
 echo "CDTEXT_ENABLED=$ENABLED"

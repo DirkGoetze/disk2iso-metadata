@@ -49,10 +49,10 @@ def get_metadata_config():
 source {INSTALL_DIR}/lib/libsettings.sh
 
 # Lese Framework-Werte aus INI
-TIMEOUT=$(config_get_value_ini "metadata" "framework" "selection_timeout" "60")
-CACHE=$(config_get_value_ini "metadata" "framework" "cache_enabled" "true")
-INTERVAL=$(config_get_value_ini "metadata" "framework" "check_interval" "1")
-APPLY_FUNC=$(config_get_value_ini "metadata" "framework" "default_apply_func" "metadata_default_apply")
+TIMEOUT=$(settings_get_value_ini "metadata" "framework" "selection_timeout" "60")
+CACHE=$(settings_get_value_ini "metadata" "framework" "cache_enabled" "true")
+INTERVAL=$(settings_get_value_ini "metadata" "framework" "check_interval" "1")
+APPLY_FUNC=$(settings_get_value_ini "metadata" "framework" "default_apply_func" "metadata_default_apply")
 
 # Ausgabe als Key=Value
 echo "METADATA_SELECTION_TIMEOUT=$TIMEOUT"
