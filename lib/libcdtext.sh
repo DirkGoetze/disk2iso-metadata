@@ -318,3 +318,79 @@ cdtext_get_metadata() {
 cdtext_test_available() {
     is_cdtext_ready
 }
+
+# ===========================================================================
+# cdtext_collect_software_info
+# ---------------------------------------------------------------------------
+# Funktion.: Sammelt Informationen über installierte Software-Abhängigkeiten
+# Parameter: keine
+# Rückgabe.: Schreibt JSON-Datei mit Software-Informationen
+# ===========================================================================
+cdtext_collect_software_info() {
+    log_debug "CD-TEXT: Sammle Software-Informationen..."
+    
+    # Lade INI-Datei um Dependencies zu lesen
+    local ini_file="${INSTALL_DIR}/conf/libcdtext.ini"
+    if [[ ! -f "$ini_file" ]]; then
+        log_error "CD-TEXT: INI-Datei nicht gefunden: $ini_file"
+        return 1
+    fi
+    
+    # Lese Dependencies aus INI
+    local dependencies
+    dependencies=$(grep -A 10 "^\[dependencies\]" "$ini_file" | grep "^optional=" | cut -d'=' -f2 | tr -d ' ')
+    
+    if [[ -z "$dependencies" ]]; then
+        log_debug "CD-TEXT: Keine Dependencies in INI definiert"
+        return 0
+    fi
+    
+    # Nutze zentrale Funktion aus libsysteminfo.sh
+    if type -t systeminfo_check_software_list &>/dev/null; then
+        local json_result
+        json_result=$(systeminfo_check_software_list "$dependencies")
+        
+        # Speichere in api/cdtext_software_info.json
+        local output_file
+        output_file="$(folders_get_api_dir)/cdtext_software_info.json"
+        echo "$json_result" > "$output_file"
+        
+        log_debug "CD-TEXT: Software-Informationen gespeichert in $output_file"
+        return 0
+    else
+        log_error "CD-TEXT: systeminfo_check_software_list nicht verfügbar"
+        return 1
+    fi
+}
+
+# ===========================================================================
+# cdtext_get_software_info
+# ---------------------------------------------------------------------------
+# Funktion.: Gibt Software-Informationen als JSON zurück
+# Parameter: keine
+# Rückgabe.: JSON-String mit Software-Informationen
+# ===========================================================================
+cdtext_get_software_info() {
+    local cache_file
+    cache_file="$(folders_get_api_dir)/cdtext_software_info.json"
+    
+    # Wenn Cache existiert und < 1 Stunde alt, verwende ihn
+    if [[ -f "$cache_file" ]]; then
+        local cache_age
+        cache_age=$(($(date +%s) - $(stat -c %Y "$cache_file" 2>/dev/null || echo 0)))
+        if [[ $cache_age -lt 3600 ]]; then
+            cat "$cache_file"
+            return 0
+        fi
+    fi
+    
+    # Sonst neu sammeln
+    cdtext_collect_software_info
+    
+    # Ausgabe
+    if [[ -f "$cache_file" ]]; then
+        cat "$cache_file"
+    else
+        echo '{"software":[],"error":"Cache-Datei nicht gefunden"}'
+    fi
+}
