@@ -1,0 +1,73 @@
+{
+  "id": "metadata",
+  "name": "Metadata Framework",
+  "category": "optional",
+  "description": "Framework für Metadaten-Provider mit Cache-Management und REST API",
+  "icon": "https://raw.githubusercontent.com/Disk2ISO/disk2iso-metadata/main/store/icon.svg",
+  "author": "Disk2ISO Team",
+  "homepage": "https://github.com/Disk2ISO/disk2iso-metadata",
+  "repository": "https://github.com/Disk2ISO/disk2iso-metadata",
+  "license": "MIT",
+  "requires": {
+    "disk2iso": ">=1.3.0"
+  },
+  "recommends": {
+    "musicbrainz": ">=1.3.0",
+    "tmdb": ">=1.3.0"
+  },
+  "current_version": "1.3.0",
+  "versions": [
+    {
+      "version": "1.3.0",
+      "released": "2026-02-07",
+      "changelog": "Kompatibilität mit disk2iso 1.3.0 Service-Struktur",
+      "download_url": "https://github.com/Disk2ISO/disk2iso-metadata/releases/download/v1.3.0/metadata-module.zip",
+      "checksum_url": "https://github.com/Disk2ISO/disk2iso-metadata/releases/download/v1.3.0/metadata-module.zip.sha256",
+      "size": "TBD"
+    },
+    {
+      "version": "1.2.1",
+      "released": "2026-02-04",
+      "changelog": "Initiales Release als eigenständiges Modul",
+      "download_url": "https://github.com/Disk2ISO/disk2iso-metadata/releases/download/v1.2.1/metadata-module.zip",
+      "checksum_url": "https://github.com/Disk2ISO/disk2iso-metadata/releases/download/v1.2.1/metadata-module.zip.sha256",
+      "size": "TBD"
+    }
+  ],
+  "install_method": "unzip",
+  "install_path": "/opt/disk2iso/",
+  "post_install": [
+    "sudo systemctl restart disk2iso-web"
+  ],
+  "features": [
+    "Provider-Registrierungs-System",
+    "Cache-Management mit TTL-Support",
+    "Generic Query/Wait/Apply Workflow",
+    "State-Machine Integration",
+    "REST API Support",
+    "Multi-Provider Support"
+  ],
+  "included_providers": [
+    {
+      "id": "cdtext",
+      "name": "CD-TEXT Provider",
+      "type": "audio",
+      "description": "Offline-Extraktion von CD-TEXT Metadaten (Album, Artist, Tracks)",
+      "requires_internet": false,
+      "availability": "10-20% aller Audio-CDs",
+      "speed": "< 1 Sekunde",
+      "accuracy": "100% (offizielle Label-Daten)",
+      "fallback_methods": ["cd-info", "icedax", "cdda2wav"]
+    }
+  ],
+  "dependencies": {
+    "system": [
+      "curl",
+      "jq"
+    ]
+  },
+  "provides": {
+    "api": "metadata-api-v1",
+    "providers": []
+  }
+}
