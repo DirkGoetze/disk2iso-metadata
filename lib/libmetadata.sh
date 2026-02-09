@@ -717,6 +717,64 @@ metadata_sanitize_filename() {
 }
 
 # ============================================================================
+# DISC DATA MANAGEMENT API
+# ============================================================================
+
+# ===========================================================================
+# metadata_set_data
+# ---------------------------------------------------------------------------
+# Funktion.: Setze Wert in DISC_DATA Array (typsichere Daten-Schicht)
+# Parameter: $1 = key (z.B. "artist", "album", "year", "movie_title")
+# .........  $2 = value (Wert zum Speichern)
+# Rückgabe.: 0 = Erfolg, 1 = Fehler (ungültige Parameter)
+# Hinweis..: Provider-Module (MusicBrainz, TMDB) nutzen diese Funktion
+# .........  um Metadaten in zentrale DISC_DATA Struktur zu schreiben
+# ===========================================================================
+metadata_set_data() {
+    local key="$1"
+    local value="$2"
+    
+    # Validierung
+    if [[ -z "$key" ]]; then
+        log_error "metadata_set_data: Parameter 'key' fehlt"
+        return 1
+    fi
+    
+    # Schreibe in DISC_DATA (definiert in libdiskinfos.sh)
+    DISC_DATA["$key"]="$value"
+    
+    log_debug "Metadata: DISC_DATA[$key] = '$value'"
+    return 0
+}
+
+# ===========================================================================
+# metadata_set_info
+# ---------------------------------------------------------------------------
+# Funktion.: Setze Wert in DISC_INFO Array (Disc-Metadaten)
+# Parameter: $1 = key (z.B. "provider", "provider_id", "disc_label")
+# .........  $2 = value (Wert zum Speichern)
+# Rückgabe.: 0 = Erfolg, 1 = Fehler (ungültige Parameter)
+# Hinweis..: Provider-Module (MusicBrainz, TMDB) nutzen diese Funktion
+# .........  um Provider-Informationen in DISC_INFO zu schreiben
+# ===========================================================================
+metadata_set_info() {
+    local key="$1"
+    local value="$2"
+    
+    # Validierung
+    if [[ -z "$key" ]]; then
+        log_error "metadata_set_info: Parameter 'key' fehlt"
+        return 1
+    fi
+    
+    # Schreibe in DISC_INFO (definiert in libdiskinfos.sh)
+    DISC_INFO["$key"]="$value"
+    
+    log_debug "Metadata: DISC_INFO[$key] = '$value'"
+    return 0
+}
+
+# ============================================================================
 # CONFIGURATION
 # ============================================================================
 
