@@ -45,7 +45,7 @@ metadata_check_dependencies() {
     log_debug "$MSG_DEBUG_METADATA_CHECK_START"
 
     #-- Alle Modul Abhängikeiten prüfen -------------------------------------
-    check_module_dependencies "$MODULE_NAME_METADATA" || return 1
+    integrity_check_module_dependencies "$MODULE_NAME_METADATA" || return 1
 
     #-- Lade METADATA Konfiguration -----------------------------------------
     load_metadata_config || return 1
@@ -102,7 +102,7 @@ is_metadata_ready() {
 # .........  abhängigen Modulen
 # Parameter: keine
 # Rückgabe.: Vollständiger Pfad zum Modul Verzeichnis
-# Hinweis..: Ordner wird bereits in check_module_dependencies() erstellt
+# Hinweis..: Ordner wird bereits in integrity_check_module_dependencies() erstellt
 # .........  Provider legen hier ihre Unterordner an (musicbrainz/, tmdb/)
 # ===========================================================================
 get_path_metadata() {
@@ -230,8 +230,8 @@ metadata_load_registered_providers() {
         
         #-- Rufe standardisierte Init-Funktion auf -------------------------
         # Provider entscheidet selbst ob er sich registriert (prüft eigene INI)
-        # Naming-Convention: init_<provider>_provider()
-        local init_func="init_${provider_name}_provider"
+        # Naming-Convention: <provider>_init_provider()
+        local init_func="${provider_name}_init_provider"
         
         if declare -f "$init_func" >/dev/null 2>&1; then
             log_debug "Metadata: Rufe Init-Funktion auf: $init_func"

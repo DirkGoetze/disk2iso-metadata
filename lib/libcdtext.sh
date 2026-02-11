@@ -37,7 +37,7 @@ cdtext_check_dependencies() {
     log_debug "CD-TEXT: Prüfe Abhängigkeiten..."
 
     # Alle Modul Abhängigkeiten prüfen
-    check_module_dependencies "$MODULE_NAME_CDTEXT" || return 1
+    integrity_check_module_dependencies "$MODULE_NAME_CDTEXT" || return 1
 
     # Lade Modul-Konfiguration
     load_config_cdtext || return 1
